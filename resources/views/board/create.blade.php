@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title','新規掲示板作成')
+
 @section('content')
 
 

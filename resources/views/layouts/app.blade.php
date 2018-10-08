@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Board</title>
+        <title>@yield('title')</title>
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -20,8 +20,10 @@
         @yield('cover')
 
         <div class="container">
+            <div class="main1">
             @include('commons.error_messages')
             @yield('content')
+            </div>
         </div>
 
         @include('commons.footer')

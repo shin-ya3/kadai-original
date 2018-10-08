@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title','掲示板')
 
 @section('content')
 

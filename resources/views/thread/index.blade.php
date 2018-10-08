@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title','スレッド一覧')
 
 @section('content')
 
@@ -16,13 +17,15 @@
     	 @if (count($threads) > 0) 
     	   @foreach ($threads as $thread)
       		<tr>
-      			<td>{{ $thread->title }}</td>
-      			<td>{{ $thread->name }}{{ $thread->updated_at}}</td>
+      			<td><a href="{{ route('post.index', $thread->thread_id) }}">{{ $thread->title }}</td>
+      			<td>{{ $thread->name }} {{ $thread->updated_at}}</td>
       		</tr>
       	 @endforeach
-      	 {!! $threads->render() !!}
+      	 
       	@endif
     	</tbody>
     </table>
-   {!! link_to_route('thread.create', '新規スレッドの作成') !!}
+    
+   {!! link_to_route('thread.create', '新規スレッドの作成',['board'=>$board]) !!}
+
 @endsection

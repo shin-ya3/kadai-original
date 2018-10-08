@@ -20,26 +20,32 @@ class ThreadsController extends Controller
         'threads' =>$threads]);
     }
     
-    public function store(Request $request)
+    public function store($id, Request $request)
     {
       $this->validate($request, [
             'title' => 'required|max:191',
             'name' => 'required|max:191'
             ]);
 
-        $request->user()->microposts()->create([
-            'title' => $request->title,
-            'name' => $request->name
-        ]);
-
-        return redirect()->back();
+        $thread = new Thread;
+        $thread->title = $request->title;
+        $thread->name = $request->name;
+        $thread->board_id = $id;
+        $thread->save();
+        
+       
+        return redirect()->route('thread.index',[$id]);
     }
     
     
     public function create($id)
     {
         $board = Board::find($id);
-        return view('thread.create', ['board' => $board]);
+        $thread = new Thread;
+        return view('thread.create', [
+            'board' => $board,
+            'thread' => $thread,
+        ]);
     }
 
 }

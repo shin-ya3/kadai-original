@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Thread;
+use App\Post;
+
 class PostsController extends Controller
 {
     /**
@@ -11,9 +14,15 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($thread_id)
     {
-        //
+        $thread = Thread::find($thread_id);
+        
+        $posts = Post::where('thread_id', $thread_id)->get();
+        
+        return view('post.index', [
+        'thread' =>$thread,
+        'posts' =>$posts]);
     }
 
     /**
@@ -21,9 +30,14 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($thread_id)
     {
-        //
+        $thread = Thread::find($thread_id);
+        $post = new Post;
+        return view('post.create', [
+            'thread' => $thread,
+            'post' => $post,
+        ]);
     }
 
     /**

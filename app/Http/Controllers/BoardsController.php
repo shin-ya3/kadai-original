@@ -17,7 +17,7 @@ class BoardsController extends Controller
         $boards = Board::all();
 
         return view('board.index', [
-            'board' => $board,
+            'boards' => $boards
         ]);
     }
 
@@ -44,10 +44,11 @@ class BoardsController extends Controller
             'name' => 'required|max:191',
         ]);
         
-        $request->board()->create([
-            'name' =>$request->name,
-            ]);
-        return redirect()->back;
+        $board = new Board;
+        $board->name = $request->name;
+        $board->save();
+        
+        return redirect('/');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\Controller;
 use App\Thread;
 use App\Post;
 
@@ -20,9 +21,12 @@ class PostsController extends Controller
         
         $posts = Post::where('thread_id', $thread_id)->get();
         
+       
+        
         return view('post.index', [
         'thread' =>$thread,
-        'posts' =>$posts]);
+        'posts' =>$posts,
+        ]);
     }
 
     /**
@@ -46,9 +50,24 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($thread_id,Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:191',
+            'post' => 'required',
+        ]);
+        
+        
+        $post = new Post;
+        $post->name = $request->name;
+        $post->post = $request->post;
+        $post->thread_id = $thread_id;
+        
+        $post->visitor = $request->ip();
+
+        $post->save();
+       
+        return redirect()->route('post.index',[$thread_id]);
     }
 
     /**

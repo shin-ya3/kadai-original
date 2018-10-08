@@ -26,14 +26,11 @@ Route::post('board/{id}/thread','ThreadsController@store')->name('thread.store')
 Route::resource('thread', 'ThreadsController', ['only' => ['destroy']]);
 
 //投稿
-Route::get('thread/{id}', 'PostsController@index')->name('post.index');
-Route::group(['prefix' => 'thread/{id}'], function () {
-    Route::post('post', 'PostsController@store')->name('post.store');
-    Route::put('post/{id}', 'PostsController@update')->name('post.update');
-    Route::delete('post/{id}', 'PostsController@destroy')->name('post.destroy');
-    Route::get('post/create', 'PostsController@create')->name('post.create');
-    Route::get('post/{id}/edit', 'PostsController@edit')->name('post.edit');
-});
+Route::get('thread/{thread_id}', 'PostsController@index')->name('post.index');
+Route::post('thread/{thread_id}/post', 'PostsController@store')->name('post.store');
+Route::get('thread/{thread_id}/post/create', 'PostsController@create')->name('post.create');
+
+
 
 /*
 Route::resource('board', 'BoardController');

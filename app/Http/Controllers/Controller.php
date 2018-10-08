@@ -7,12 +7,14 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
+
+
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     
     public function counts($post) {
-      $count_posts = $post->post()->count();
+      $count_posts = $thread->post()->count();
       
       return ['count_posts' => $count_posts];
     }

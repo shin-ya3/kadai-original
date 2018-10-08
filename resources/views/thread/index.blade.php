@@ -17,7 +17,7 @@
     	 @if (count($threads) > 0) 
     	   @foreach ($threads as $thread)
       		<tr>
-      			<td><a href="{{ route('post.index', $thread->thread_id) }}">{{ $thread->title }}</td>
+      			<td><a href="{{ route('post.index', $thread->id) }}">{{ $thread->title }}</td>
       			<td>{{ $thread->name }} {{ $thread->updated_at}}</td>
       		</tr>
       	 @endforeach

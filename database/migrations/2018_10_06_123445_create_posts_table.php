@@ -16,13 +16,18 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name'); //投稿者
-            $table->text('post'); //コメント
-            $table->ipAddress('visitor'); //ipアドレス
+            $table->text('comment'); //コメント
+            $table->ipAddress('ip'); //ipアドレス
+            $table->integer('inner_id'); //スレッド内投稿番号
+            $table->string('password'); //パスワード
             $table->integer('thread_id')->unsigned()->index();
             $table->timestamps();
             
             //外部キー設定
             $table->foreign('thread_id')->references('id')->on('threads');
+            
+             //inner_idとthread_idの組み合わせの重複を許さない
+            $table->unique(['inner_id', 'thread_id']);
         });
     }
 

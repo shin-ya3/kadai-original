@@ -16,3 +16,20 @@ footer {
     background: #fff;
     padding:20px;
 }
+
+.post_list {
+    list-style:none;
+}
+.post_no {
+    color: #1111cc;
+    font-weight: bold;
+}
+
+.post_name {
+    font-weight: bold;
+    color: #228B22;
+}
+
+.post_id {
+    color: #cc88cc;
+}

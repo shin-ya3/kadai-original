@@ -10,8 +10,12 @@
               {!! Form::text('name', null, ['class' => 'form-control']) !!}
           </div>
           <div class="form-group">
-              {!! Form::label('post', 'コメント') !!}
-              {!! Form::textarea('post', null, ['class' => 'form-control']) !!}
+              {!! Form::label('comment', 'コメント') !!}
+              {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
+          </div>
+          <div class="form-group">
+              {!! Form::label('password', 'パスワード') !!}
+              {!! Form::text('password', null, ['class' => 'form-control']) !!}
           </div>
           <div style="text-align:center;">
               {!! Form::submit('コメントする', ['class' => 'btn btn-primary btn-lg']) !!}

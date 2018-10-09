@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Board;
 use App\Thread;
+use App\Post;
 
 class ThreadsController extends Controller
 {
@@ -33,6 +34,21 @@ class ThreadsController extends Controller
         $thread->board_id = $id;
         $thread->save();
         
+        // PostControllerから貼り付け
+        $post = new Post;
+        
+        if (isset($request->name)) {
+            $post->name = $request->name;
+        } else {
+            $post->name = '名無し';
+        }
+
+        $post->comment = $request->post_comment;
+        $post->thread_id = $thread->id;
+        $post->password = bcrypt('sogou');
+        $post->inner_id = 1;
+        $post->ip = $request->ip();
+        $post->save();
        
         return redirect()->route('thread.index',[$id]);
     }

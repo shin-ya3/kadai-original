@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Thread;
 use App\Post;
+use Hash;
 
 class PostsController extends Controller
 {
@@ -53,17 +54,25 @@ class PostsController extends Controller
     public function store($thread_id,Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:191',
-            'post' => 'required',
+            'name' => 'max:191',
+            'comment' => 'required',
+            'password'=> 'min:4|max:10',
         ]);
         
         
         $post = new Post;
-        $post->name = $request->name;
-        $post->post = $request->post;
-        $post->thread_id = $thread_id;
         
-        $post->visitor = $request->ip();
+        if (isset($request->name)) {
+            $post->name = $request->name;
+        } else {
+            $post->name = '名無し';
+            
+        }
+        $post->comment = $request->comment;
+        $post->thread_id = $thread_id;
+        $post->password = bcrypt($request->password);
+        $post->inner_id = Post::where('thread_id', $thread_id)->count() + 1;
+        $post->ip = $request->ip();
 
         $post->save();
        
@@ -87,9 +96,13 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($thread_id,$post_id)
     {
-        //
+        $thread = Thread::find($thread_id);
+        $post = Post::where('thread_id', $thread_id)->where('id', $post_id)->first();
+        
+        return view('post.edit',
+        ['thread'=>$thread,'post'=>$post]);
     }
 
     /**
@@ -99,9 +112,26 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $thread_id, $post_id)
     {
-        //
+        $this->validate($request, [
+            'comment' => 'required',
+            'password'=> 'min:4|max:10',
+        ]);
+        
+        $post = Post::find($post_id);
+        
+        if(!Hash::check($request->password, $post->password)) {
+            return redirect()->back()->withErrors(['passwordが違います'])->withInput();
+        }
+        
+        $post->comment = $request->comment;
+
+        $post->ip = $request->ip();
+        $post->save();
+
+        return redirect()->route('post.index',[$thread_id,$post_id]);
+        
     }
 
     /**
@@ -110,8 +140,17 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($thread_id,$post_id)
     {
-        //
+        $post = Post::find($post_id);
+        
+        if(!Hash::check($request->password, $post->password)) {
+            return redirect()->back()->withErrors(['passwordが違います'])->withInput();
+        }
+        
+        $post->delete;
+
+        return redirect()->route('post.index',[$thread_id,$post_id]);
+        
     }
 }

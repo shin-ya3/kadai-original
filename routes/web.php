@@ -29,7 +29,9 @@ Route::resource('thread', 'ThreadsController', ['only' => ['destroy']]);
 Route::get('thread/{thread_id}', 'PostsController@index')->name('post.index');
 Route::post('thread/{thread_id}/post', 'PostsController@store')->name('post.store');
 Route::get('thread/{thread_id}/post/create', 'PostsController@create')->name('post.create');
+Route::put('thread/{thread_id}/post/{id}','PostsController@update')->name('post.update');
 
+Route::get('thread/{thread_id}/post/{id}/edit','PostsController@edit')->name('post.edit');
 
 
 /*

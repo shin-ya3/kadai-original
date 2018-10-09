@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['name', 'post', 'visitor', 'thread_id'];
+    protected $fillable = ['name', 'comment', 'ip', 'thread_id','inner_id'];
+    
+    protected $hidden = ['password','remember_token'];
     
     public function thread()
     {

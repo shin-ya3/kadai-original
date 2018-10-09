@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','スレッド一覧')
+@section('title', $board->name)
 
 @section('content')
 

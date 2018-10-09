@@ -21,7 +21,9 @@
       			<td>{{ $thread->name }} {{ $thread->updated_at}}</td>
       		</tr>
       	 @endforeach
-      	 
+      	 <div style="text-align:center;">
+      	 {!! $threads->render() !!}    
+      	 </div>
       	@endif
     	</tbody>
     </table>

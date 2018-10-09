@@ -14,7 +14,7 @@ class ThreadsController extends Controller
     {
         $board = Board::find($id);
         
-        $threads = Thread::where('board_id', $id)->get();
+        $threads = Thread::where('board_id', $id)->paginate(5);
         
         return view('thread.index', [
         'board' =>$board,

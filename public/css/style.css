@@ -12,6 +12,16 @@ footer {
 }
 */
 
+.b-navi li {
+    display:inline-block;
+}
+.board-list {
+    padding:5px;
+    text-align:center;
+    font-size:15px;
+}
+
+
 .main1 {
     background: #fff;
     padding:20px;
@@ -32,4 +42,30 @@ footer {
 
 .post_id {
     color: #cc88cc;
+}
+.rank {
+    vertical-align:middle;
+}
+.rank1 {
+    background-color:#f0ad4e;
+    line-height:30px;
+    font-size:15px;
+    text-align:center;
+    line-height: 45px;
+    border-radius: 5px;
+    color: #fff;
+    margin:10px 0;
+    font-weight:bold;
+}
+
+.rank2 {
+    background-color:#5bc0de;
+    line-height:30px;
+    font-size:15px;
+    text-align:center;
+    line-height: 45px;
+    border-radius: 5px;
+    color: #fff;
+    margin:10px 0;
+    font-weight:bold;
 }

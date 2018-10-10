@@ -6,7 +6,7 @@
 
     <h2>{{ $board->name }}</h2>
     
-    <table class="table table-bordered">
+    <table class="table table-striped table-bordered">
     	<thead>
     		<tr>
     			<th>タイトル</th>

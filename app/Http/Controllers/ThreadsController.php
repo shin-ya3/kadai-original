@@ -14,11 +14,12 @@ class ThreadsController extends Controller
     {
         $board = Board::find($id);
         
-        $threads = Thread::where('board_id', $id)->paginate(5);
+        $threads = Thread::withCount('posts')->where('board_id', $id)->latest()->paginate(5);
         
         return view('thread.index', [
         'board' =>$board,
-        'threads' =>$threads]);
+        'threads' =>$threads
+        ]);
     }
     
     public function store($id, Request $request)
@@ -45,7 +46,7 @@ class ThreadsController extends Controller
 
         $post->comment = $request->post_comment;
         $post->thread_id = $thread->id;
-        $post->password = bcrypt('sogou');
+        $post->password = bcrypt('$request->password');
         $post->inner_id = 1;
         $post->ip = $request->ip();
         $post->save();

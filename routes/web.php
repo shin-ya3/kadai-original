@@ -11,7 +11,7 @@
 |
 */
 //トップページ
-Route::get('/', 'BoardsController@index');
+Route::get('/', 'BoardsController@index')->name('board.index');
 Route::resource('board', 'BoardsController', ['only' => ['store', 'create','destroy']]);
 
 //スレッド
@@ -33,9 +33,7 @@ Route::put('thread/{thread_id}/post/{id}','PostsController@update')->name('post.
 
 Route::get('thread/{thread_id}/post/{id}/edit','PostsController@edit')->name('post.edit');
 
+//ランキング
+Route::get('ranking/new', 'RankingController@new')->name('ranking.new');
+Route::get('ranking/popular', 'RankingController@popular')->name('ranking.popular');
 
-/*
-Route::resource('board', 'BoardController');
-Route::resource('board.thread', 'ThreadController');
-Route::resource('board.thread.post', 'PostController');
-*/

@@ -22,12 +22,7 @@ class PostsController extends Controller
         
         $posts = Post::where('thread_id', $thread_id)->get();
         
-       
-        
-        return view('post.index', [
-        'thread' =>$thread,
-        'posts' =>$posts,
-        ]);
+        return view('post.index', ['thread' =>$thread,'posts' =>$posts]);
     }
 
     /**
@@ -37,12 +32,12 @@ class PostsController extends Controller
      */
     public function create($thread_id)
     {
-        $thread = Thread::find($thread_id);
+       /* $thread = Thread::find($thread_id);
         $post = new Post;
         return view('post.create', [
             'thread' => $thread,
             'post' => $post,
-        ]);
+        ]);*/
     }
 
     /**
@@ -73,7 +68,7 @@ class PostsController extends Controller
         $post->password = bcrypt($request->password);
         $post->inner_id = Post::where('thread_id', $thread_id)->count() + 1;
         $post->ip = $request->ip();
-
+        
         $post->save();
        
         return redirect()->route('post.index',[$thread_id]);
@@ -119,18 +114,31 @@ class PostsController extends Controller
             'password'=> 'min:4|max:10',
         ]);
         
-        $post = Post::find($post_id);
-        
-        if(!Hash::check($request->password, $post->password)) {
-            return redirect()->back()->withErrors(['passwordが違います'])->withInput();
+        if (isset($request->edit)) {
+            $post = Post::find($post_id);
+            
+            if(!Hash::check($request->password, $post->password)) {
+                return redirect()->back()->withErrors(['passwordが違います'])->withInput();
+            }
+            
+            $post->comment = $request->comment;
+    
+            $post->ip = $request->ip();
+            $post->save();
+    
+            return redirect()->route('post.index',[$thread_id,$post_id]);
+        } elseif (isset($request->delete)) {
+            $post = Post::find($post_id);
+            
+            if(!Hash::check($request->password, $post->password)) {
+                return redirect()->back()->withErrors(['passwordが違います'])->withInput();
+            }
+            
+            $post->delete();
+    
+            return redirect()->route('post.index',[$thread_id,$post_id]);
         }
         
-        $post->comment = $request->comment;
-
-        $post->ip = $request->ip();
-        $post->save();
-
-        return redirect()->route('post.index',[$thread_id,$post_id]);
         
     }
 
@@ -148,9 +156,10 @@ class PostsController extends Controller
             return redirect()->back()->withErrors(['passwordが違います'])->withInput();
         }
         
-        $post->delete;
+        $post->delete();
 
         return redirect()->route('post.index',[$thread_id,$post_id]);
         
     }
+    
 }

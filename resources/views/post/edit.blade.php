@@ -20,8 +20,8 @@
               {!! Form::password('password', ['class' => 'form-control']) !!}
           </div>
           <div style="text-align:center;">
-              {!! Form::submit('編集する', ['class' => 'btn btn-primary btn-lg']) !!}
-              {!! Form::submit('削除する', ['class' => 'btn btn-danger btn-lg']) !!}
+              {!! Form::submit('編集する', ['name' => 'edit', 'class' => 'btn btn-primary btn-lg']) !!}
+              {!! Form::submit('削除する', ['name' => 'delete', 'class' => 'btn btn-danger btn-lg']) !!}
           </div>
                     
       {!! Form::close() !!}

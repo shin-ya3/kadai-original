@@ -226,6 +226,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        // 自作ヘルパー
+        'Helper' => App\Helpers\Helper::class,
     ],
 
 ];

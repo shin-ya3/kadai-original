@@ -28,8 +28,16 @@ footer {
 }
 
 .post_list {
-    list-style:none;
+    margin:10px 0 10px 0;
+    background-color:#eff3fa;
+    padding:5px 0;
+       
 }
+
+.post_list ul {
+    list-style:none;
+    padding-inline-start: 10px;
+   }
 .post_no {
     color: #1111cc;
     font-weight: bold;
@@ -68,4 +76,27 @@ footer {
     color: #fff;
     margin:10px 0;
     font-weight:bold;
+}
+
+.post_area {
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+}
+
+.count_badge {
+    /*display: inline-block;*/
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #999;
+    border-radius: 10px;
+    float:right;
 }
